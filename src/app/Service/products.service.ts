@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Subject, throwError } from "rxjs";
 import { map, catchError} from 'rxjs/operators';
-import { Product } from '../model/products';
+import { Products } from '../model/products';
 
 @Injectable({providedIn: "root"})
 export class ProductService{
@@ -16,7 +16,7 @@ export class ProductService{
         console.log(products);
         const headers = new HttpHeaders({'myHeader': 'procademy'});
         this.http.post<{name: string}>(
-            'https://angularlibrary-15d52-default-rtdb.firebaseio.com/products.json', 
+            'https://library-eff58-default-rtdb.firebaseio.com/products.json', 
             products, {headers: headers})
             .subscribe((res) => {
                 console.log(res);
@@ -34,7 +34,7 @@ export class ProductService{
 
         const params = new HttpParams()
         .set('print', 'pretty').set('pageNum', 1);
-        return this.http.get<{[key: string]: Product}>('https://angularlibrary-15d52-default-rtdb.firebaseio.com/products.json', 
+        return this.http.get<{[key: string]: Products}>('https://library-eff58-default-rtdb.firebaseio.com/products.json', 
                                                     {'headers' : header, params: params})
         .pipe(map((res) => {
             const products = [];
@@ -56,18 +56,19 @@ export class ProductService{
         let header = new HttpHeaders();
         header = header.append('myHeader1', 'Value1');
         header = header.append('myHeader2', 'Value2');
-        this.http.delete('https://angularlibrary-15d52-default-rtdb.firebaseio.com/products/'+id+'.json', {headers: header})
+        this.http.delete('https://library-eff58-default-rtdb.firebaseio.com/products/'+id+'.json', {headers: header})
         .subscribe();
     }
 
     //delete all products from database
     deleteAllProducts(){
-        this.http.delete('https://angularlibrary-15d52-default-rtdb.firebaseio.com/products.json')
+        this.http.delete('https://library-eff58-default-rtdb.firebaseio.com/products.json')
         .subscribe();
     }
 
-    updateProduct(id: string, value: Product){
-        this.http.put('https://angularlibrary-15d52-default-rtdb.firebaseio.com/products/'+id+'.json', value)
+    updateProduct(id: string, value: Products){
+        this.http.put('https://library-eff58-default-rtdb.firebaseio.com/products/'+id+'.json', value)
         .subscribe();
+    
     }
 }

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild  } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ProductService } from './Service/products.service';
-import { Product } from './model/products';
+import { Products } from './model/products';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ import { Product } from './model/products';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'libraryang';
 
-  allProducts: Product[] = [];
+  allProducts: Products[] = [];
   isFetching: boolean = false;
   editMode: boolean = false;
   currentProductId: string;
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('productsForm') form: NgForm;
 
 
-  userModel = new Product(" "," "," "," "," ");
+  userModel = new Products(" "," "," "," "," ");
 
   constructor(private productService: ProductService){
 
@@ -77,8 +77,8 @@ export class AppComponent implements OnInit, OnDestroy {
     }else{
       this.productService.updateProduct(this.currentProductId, products);
       this.form.reset();
+      this.editMode=false;
     }
-    
   }
 
   private fetchProducts(){
@@ -117,7 +117,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     //Change the button value to update product
     this.editMode = true;
-    this.fetchProducts();
+  
    
   }
 

@@ -1,4 +1,4 @@
-export class Product{
+export class Products{
     libname: string;
     building: string;
     floor: string;
