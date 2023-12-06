@@ -111,19 +111,12 @@
         <div class="container">
 
           <div class="wrapper">
-            <div class="container-fluid ">
+            <div class="container-fluid pb-5">
 
 
 
 
-              &nbsp;
-              &nbsp;
-              &nbsp;
-              &nbsp;
-              &nbsp;
-              &nbsp;
-              &nbsp;
-              &nbsp;
+          
 
 
               <div class="card card-primary card-outline ">
@@ -134,149 +127,140 @@
                     <div class="container">
                       <div class="row">
 
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
+                 
 
-                        <div id="form" class="form-area col-5">
-                          &nbsp;
-                          &nbsp;
-                          &nbsp;
-                          <h3 *ngIf="!editMode">Add Library</h3>
+                        <div id="form" class="form-area col-5 ">
+                        
+                          <div class="py-5 px-3">
+                            <h3 *ngIf="!editMode">Add Library</h3>
                           <h3 *ngIf="editMode">Edit Library</h3>
-                          &nbsp;
-                          &nbsp;
-                          &nbsp;
+                          </div>
+                     
 
-                          <form #productsForm="ngForm" (ngSubmit)="onProductCreate(productsForm.value);onProductsFetch();onProductsFetch()">
-                            <div class="form-group">
-                              <label for="">Name</label>
-                              <input type="text" name="libname" #libname="ngModel"
-                                [class.is-invalid]="libname.invalid && libname.touched" class="form-control " required
-                                ngModel>
-                              <small class="text-danger " [class.d-none]="libname.valid || libname.untouched">Name is
-                                required</small>
-                            </div>
+                          <div id="form area" class="py-3 px-3">
+                            <form #productsForm="ngForm" (ngSubmit)="onProductCreate(productsForm.value);onProductsFetch();onProductsFetch()">
+                              <div class="form-group">
+                                <label for="">Name</label>
+                                <input type="text" name="libname" #libname="ngModel"
+                                  [class.is-invalid]="libname.invalid && libname.touched" class="form-control " required
+                                  ngModel>
+                                <small class="text-danger " [class.d-none]="libname.valid || libname.untouched">Name is
+                                  required</small>
+                              </div>
+  
+  
+  
+                              <div class="form-group">
+                                <label for="">Building</label>
+                                <select (blur)="validateTopic(building.value)" (change)="validateTopic(building.value)"
+                                  class="form-control " #building="ngModel"
+                                  [class.is-invalid]="topicHasError && building.touched" name="building"
+                                  [(ngModel)]="userModel.building">
+  
+                                  <option *ngFor="let building of buildings">{{building}}</option>
+  
+  
+                                </select>
+                                <small class="text-danger" [class.d-none]="!topicHasError || building.untouched">Please
+                                  choose a building</small>
+  
+                              </div>
+  
+  
+  
+                              <div *ngIf="selectmain" class="form-group">
+                                <label for="">Floor</label>
+                                <select (blur)="validateFloor(floor.value)" (change)="validateFloor(floor.value)"
+                                  class="form-control " #floor="ngModel"
+                                  [class.is-invalid]="floorHasError && floor.touched" name="floor"
+                                  [(ngModel)]="userModel.floor">
+  
+  
+  
+                                  <option *ngFor="let floor of mainfloors">{{floor}}</option>
+  
+  
+                                </select>
+                                <small class="text-danger" [class.d-none]="!floorHasError || floor.untouched">Please
+                                  choose a floor</small>
+  
+                              </div>
+  
+  
+  
+                              <div *ngIf="selecthariri" class="form-group">
+                                <label for="">Floor</label>
+                                <select (blur)="validateFloor(floor.value)" (change)="validateFloor(floor.value)"
+                                  class="form-control " #floor="ngModel"
+                                  [class.is-invalid]="floorHasError && floor.touched" name="floor"
+                                  [(ngModel)]="userModel.floor">
+  
+  
+                                  <option *ngFor="let floor of haririfloors">{{floor}}</option>
+  
+  
+                                </select>
+                                <small class="text-danger" [class.d-none]="!floorHasError || floor.untouched">Please
+                                  choose a floor</small>
+  
+                              </div>
+  
+  
+                              <div class="form-group">
+                                <label for="">Schedule</label>
+                                <div class="row">
+                                  <div class="col-5">
+                                    <p for="">From</p>
+                                    <input type="time" name="fromtime" #fromtime="ngModel"
+                                      [class.is-invalid]="fromtime.invalid && fromtime.touched" class="form-control "
+                                      required ngModel>
+                                    <small class="text-danger "
+                                      [class.d-none]="fromtime.valid || fromtime.untouched">Schedule is required</small>
+  
+                                  </div>
+                                  <div class="col-5">
+                                    <p for="">To</p>
+                                    <input type="time" name="totime" #totime="ngModel"
+                                      [class.is-invalid]="totime.invalid && totime.touched" class="form-control " required
+                                      ngModel>
+                                    <small class="text-danger " [class.d-none]="totime.valid || totime.untouched">Schedule
+                                      is required</small>
+  
+                                  </div>
+  
+                                </div>
+  
+  
+                              </div>
+                              
+                      
 
-
-
-                            <div class="form-group">
-                              <label for="">Building</label>
-                              <select (blur)="validateTopic(building.value)" (change)="validateTopic(building.value)"
-                                class="form-control " #building="ngModel"
-                                [class.is-invalid]="topicHasError && building.touched" name="building"
-                                [(ngModel)]="userModel.building">
-
-                                <option *ngFor="let building of buildings">{{building}}</option>
-
-
-                              </select>
-                              <small class="text-danger" [class.d-none]="!topicHasError || building.untouched">Please
-                                choose a building</small>
-
-                            </div>
-
-
-
-                            <div *ngIf="selectmain" class="form-group">
-                              <label for="">Floor</label>
-                              <select (blur)="validateFloor(floor.value)" (change)="validateFloor(floor.value)"
-                                class="form-control " #floor="ngModel"
-                                [class.is-invalid]="floorHasError && floor.touched" name="floor"
-                                [(ngModel)]="userModel.floor">
-
-
-
-                                <option *ngFor="let floor of mainfloors">{{floor}}</option>
-
-
-                              </select>
-                              <small class="text-danger" [class.d-none]="!floorHasError || floor.untouched">Please
-                                choose a floor</small>
-
-                            </div>
-
-
-
-                            <div *ngIf="selecthariri" class="form-group">
-                              <label for="">Floor</label>
-                              <select (blur)="validateFloor(floor.value)" (change)="validateFloor(floor.value)"
-                                class="form-control " #floor="ngModel"
-                                [class.is-invalid]="floorHasError && floor.touched" name="floor"
-                                [(ngModel)]="userModel.floor">
-
-
-                                <option *ngFor="let floor of haririfloors">{{floor}}</option>
-
-
-                              </select>
-                              <small class="text-danger" [class.d-none]="!floorHasError || floor.untouched">Please
-                                choose a floor</small>
-
-                            </div>
-
-
-                            <div class="form-group">
-                              <label for="">Schedule</label>
-                              <div class="row">
-                                <div class="col-5">
-                                  <p for="">From</p>
-                                  <input type="time" name="fromtime" #fromtime="ngModel"
-                                    [class.is-invalid]="fromtime.invalid && fromtime.touched" class="form-control "
-                                    required ngModel>
-                                  <small class="text-danger "
-                                    [class.d-none]="fromtime.valid || fromtime.untouched">Schedule is required</small>
+                              <div class=" row">
+                                <div class=" px-2">
+                                  <input [disabled]="productsForm.form.invalid" class="btn btn-success " type="submit"
+                                value="{{editMode ? 'Update' : 'Submit'}}">
+                                </div>
+                                <div class=" px-2">
+                                  <button (click)="canceledit()" *ngIf="editMode" class="btn btn-primary " type="button">Cancel </button>
 
                                 </div>
-                                <div class="col-5">
-                                  <p for="">To</p>
-                                  <input type="time" name="totime" #totime="ngModel"
-                                    [class.is-invalid]="totime.invalid && totime.touched" class="form-control " required
-                                    ngModel>
-                                  <small class="text-danger " [class.d-none]="totime.valid || totime.untouched">Schedule
-                                    is required</small>
-
-                                </div>
-
+              
                               </div>
 
-
-                            </div>
-                            <input [disabled]="productsForm.form.invalid" class="btn btn-success " type="submit"
-                              value="{{editMode ? 'Update' : 'Submit'}}">
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-                            &nbsp;
-
-
-                            <button (click)="canceledit()" *ngIf="editMode" class="btn btn-primary " type="button">Cancel </button>
-
-
-                          </form>
-                          &nbsp;
-                          &nbsp;
-                          &nbsp;
-                          &nbsp;
+  
+  
+                            </form>
+                          </div>
+                    
                         </div>
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
-                        &nbsp;
+                      
 
 
                         <!--Display product area-->
-                        <div id="tabledisplay" class="product-display-area col-6">
-                          &nbsp;
-                          &nbsp;
-                          &nbsp;
-                          <h3>Libraries</h3>
-                          &nbsp;
-                          &nbsp;
-                          &nbsp;
+                        <div id="tabledisplay" class="product-display-area col-7 px-3 py-3">
+                       
+                          <h3 class="py-5">Libraries</h3>
+                         
                           <table class="table table-bordered ">
                             <tr>
 
@@ -308,11 +292,8 @@
                               <td>{{prod.totime}}</td>
                               <td class="text-center ">
 
-                                <a id="noblue"><button class="btn btn-success" type="button"
-                                    (click)="onEditClicked(prod.id)">Edit </button></a>
 
-
-                                &nbsp;
+                    
                                 <div class="modal fade" [id] = "'exampleModal' + prod.id" tabindex="-1" role="dialog"
                                   aria-labelledby="exampleModalLabel" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
@@ -336,10 +317,25 @@
                                 </div>
 
                               
-                                <button type="button" class="btn btn-danger" data-toggle="modal"
-                                [attr.data-target]="'#exampleModal' + prod.id">
-                                Delete
-                              </button>
+                          
+
+
+
+                                <div class=" row">
+                                  <div class=" px-3">
+                                    <a id="noblue"><button class="btn btn-success" type="button"
+                                      (click)="onEditClicked(prod.id)">Edit </button></a>
+                                  </div>
+                                  <div class=" px-2">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    [attr.data-target]="'#exampleModal' + prod.id">
+                                    Delete
+                                  </button>
+                                  </div>
+                
+                                </div>
+                                </td>
+
                             </tr>
 
 
