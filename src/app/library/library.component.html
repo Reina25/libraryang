@@ -17,7 +17,7 @@
          
             <!--Display form area-->                          
             <div id="form area" class="py-3 px-3">
-                <form #productsForm="ngForm" (ngSubmit)="onProductCreate(productsForm.value);onProductsFetch();onProductsFetch()">
+                <form #productsForm="ngForm" (ngSubmit)="onLibraryCreate(productsForm.value);onLibrariesFetch();onLibrariesFetch()">
                   <div class="form-group">
                     <label for="">Name</label>
                     <input type="text" name="libname" #libname="ngModel"
@@ -31,7 +31,7 @@
 
                   <div class="form-group">
                     <label for="">Building</label>
-                    <select (blur)="validateTopic(building.value)" (change)="validateTopic(building.value)"
+                    <select (blur)="validateBuilding(building.value)" (change)="validateBuilding(building.value)"
                       class="form-control " #building="ngModel"
                       [class.is-invalid]="topicHasError && building.touched" name="building"
                       [(ngModel)]="userModel.building">
@@ -189,7 +189,7 @@
                             <button type="button" class="btn btn-secondary"
                               data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary" data-dismiss="modal"
-                              (click)="onDeleteProduct(prod.id);onProductsFetch();onProductsFetch();onProductsFetch()">Save changes</button>
+                              (click)="onDeleteLibrary(prod.id);onLibrariesFetch();onLibrariesFetch();onLibrariesFetch()">Save changes</button>
                           </div>
                         </div>
                       </div>

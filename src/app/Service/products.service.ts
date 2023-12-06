@@ -11,7 +11,7 @@ export class ProductService{
 
     }
 
-    //Create product in database
+    //Create library in database
     createProduct(products: {libname: string, building: string, floor: string, fromtime:string, totime:string}){
         console.log(products);
         const headers = new HttpHeaders({'myHeader': 'procademy'});
@@ -26,7 +26,7 @@ export class ProductService{
           
     }
 
-    //fetch products from database
+    //fetch libraries from database
     fetchProduct(){
         const header = new HttpHeaders()
         .set('content-type', 'application/json')
@@ -51,7 +51,7 @@ export class ProductService{
        
     }
 
-    //delete a Product from database
+    //delete a library from database
     deleteProduct(id: string){
         let header = new HttpHeaders();
         header = header.append('myHeader1', 'Value1');
@@ -60,7 +60,7 @@ export class ProductService{
         .subscribe();
     }
 
-    //delete all products from database
+    //delete all libraries from database
     deleteAllProducts(){
         this.http.delete('https://library-eff58-default-rtdb.firebaseio.com/products.json')
         .subscribe();

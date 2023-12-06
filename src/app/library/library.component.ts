@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { ProductService } from '../Service/products.service';
-import { Products } from '../model/products';
+// import { ProductService } from '../Service/products.service';
+// import { Products } from '../model/products';
+import { Libraries } from '../model/libraries';
+import { LibraryServiceService } from '../Service/library-service.service';
 
 @Component({
   selector: 'app-library',
@@ -11,7 +13,7 @@ import { Products } from '../model/products';
 })
 export class LibraryComponent implements OnInit, OnDestroy {
 
-  allProducts: Products[] = [];
+  allProducts: Libraries[] = [];
   isFetching: boolean = false;
   editMode: boolean = false;
   currentProductId: string;
@@ -39,9 +41,9 @@ export class LibraryComponent implements OnInit, OnDestroy {
   @ViewChild('productsForm') form: NgForm;
 
 
-  userModel = new Products(" "," "," "," "," ");
+  userModel = new Libraries(" "," "," "," "," ");
 
-  constructor(private productService: ProductService){
+  constructor(private libraryService: LibraryServiceService){
 
   }
 
@@ -57,32 +59,32 @@ export class LibraryComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(){
-    this.fetchProducts();
-    this.errorSub = this.productService.error.subscribe((message) => {
+    this.fetchLibraries();
+    this.errorSub = this.libraryService.error.subscribe((message) => {
       this.errorMessage = message;
     })
   }
 
-  onProductsFetch(){
-    this.fetchProducts();
+  onLibrariesFetch(){
+    this.fetchLibraries();
   }
 
-  onProductCreate(products: {libname: string, building: string, floor: string, fromtime:string, totime:string}){
+  onLibraryCreate(products: {libname: string, building: string, floor: string, fromtime:string, totime:string}){
     this.submitted=true;
     if(!this.editMode){
-        this.productService.createProduct(products);
-        this.productService.fetchProduct();
+        this.libraryService.createLibrary(products);
+        this.libraryService.fetchLibrary();
         this.form.reset();
     }else{
-      this.productService.updateProduct(this.currentProductId, products);
+      this.libraryService.updateLibrary(this.currentProductId, products);
       this.form.reset();
       this.editMode=false;
     }
   }
 
-  private fetchProducts(){
+  private fetchLibraries(){
     this.isFetching = true;
-    this.productService.fetchProduct().subscribe((products) => {
+    this.libraryService.fetchLibrary().subscribe((products) => {
       this.allProducts = products;
       this.isFetching = false;
     }, (err) => {
@@ -90,12 +92,12 @@ export class LibraryComponent implements OnInit, OnDestroy {
     })
   }
 
-  onDeleteProduct(id: string){
-    this.productService.deleteProduct(id);
+  onDeleteLibrary(id: string){
+    this.libraryService.deleteLibrary(id);
   }
 
-  onDeleteAllProducts(){
-    this.productService.deleteAllProducts();
+  onDeleteAllLibraries(){
+    this.libraryService.deleteAllLibraries();
   }
 
   onEditClicked(id: string){
@@ -124,7 +126,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
     this.errorSub.unsubscribe();
   }
 
-  validateTopic(value: any){
+  validateBuilding(value: any){
     if(value === 'Main' ){
       this.topicHasError=false;
       this.selectmainfun();
