@@ -32,8 +32,6 @@ export class LibraryComponent implements OnInit, OnDestroy {
   haririFloors = ['1','2','3','4','5','6','7','8','9','10','11'];
 
 
-
-
   @ViewChild('libraryForm') form: NgForm;
 
 
