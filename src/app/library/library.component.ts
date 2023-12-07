@@ -38,7 +38,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
 
 
 
-  @ViewChild('productsForm') form: NgForm;
+  @ViewChild('libraryForm') form: NgForm;
 
 
   userModel = new Libraries(" "," "," "," "," ");

@@ -17,7 +17,7 @@
          
             <!--Display form area-->                          
             <div id="form area" class="py-3 px-3">
-                <form #productsForm="ngForm" (ngSubmit)="onLibraryCreate(productsForm.value);onLibrariesFetch();onLibrariesFetch()">
+                <form #libraryForm="ngForm" (ngSubmit)="onLibraryCreate(libraryForm.value);onLibrariesFetch();onLibrariesFetch()">
                   <div class="form-group">
                     <label for="">Name</label>
                     <input type="text" name="libname" #libname="ngModel"
@@ -116,7 +116,7 @@
 
                   <div class=" row">
                     <div class=" px-2">
-                      <input [disabled]="productsForm.form.invalid" class="btn btn-success " type="submit"
+                      <input [disabled]="libraryForm.form.invalid" class="btn btn-success " type="submit"
                     value="{{editMode ? 'Update' : 'Submit'}}">
                     </div>
                     <div class=" px-2">

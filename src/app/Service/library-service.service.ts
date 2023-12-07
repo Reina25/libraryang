@@ -46,7 +46,6 @@ export class LibraryServiceService {
           }
           return products;
       }), catchError((err) => {
-          //write the logic for logging error
           return throwError(err);
       }))
      
@@ -67,6 +66,7 @@ export class LibraryServiceService {
       .subscribe();
   }
 
+  //edit library in database   
   updateLibrary(id: string, value: Libraries){
       this.http.put('https://library-eff58-default-rtdb.firebaseio.com/libraries/'+id+'.json', value)
       .subscribe();
