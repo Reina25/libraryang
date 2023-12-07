@@ -39,15 +39,17 @@ export class LibraryComponent implements OnInit, OnDestroy {
 
   userModel = new Libraries(" "," "," "," "," ");
 
-  constructor(private libraryService: LibraryServiceService){
+  constructor(private libraryService: LibraryServiceService){}
 
-  }
 
+  // when main building selected, show main floors only
   selectMainFun(){
     this.selectMain=true;
     this.selectHariri=false;
   }
 
+
+  // when hariri building selected, show hariri floors only
   selectHaririFun(){
     this.selectHariri=true;
     this.selectMain=false;
@@ -55,6 +57,8 @@ export class LibraryComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(){
+
+    // get libraries from database on load
     this.fetchLibraries();
     this.errorSub = this.libraryService.error.subscribe((message) => {
       this.errorMessage = message;
@@ -65,6 +69,8 @@ export class LibraryComponent implements OnInit, OnDestroy {
     this.fetchLibraries();
   }
 
+
+  // submit or update library in database (according to edit mode) 
   onLibraryCreate(library: {libname: string, building: string, floor: string, fromtime:string, totime:string}){
     this.submitted=true;
     if(!this.editMode){
@@ -78,6 +84,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
     }
   }
 
+  // get libraries from database
   private fetchLibraries(){
     this.isFetching = true;
     this.libraryService.fetchLibrary().subscribe((libraries) => {
@@ -88,14 +95,19 @@ export class LibraryComponent implements OnInit, OnDestroy {
     })
   }
 
+
+  // delete library in database according to id
   onDeleteLibrary(id: string){
     this.libraryService.deleteLibrary(id);
   }
 
+  // delete all libraries in database
   onDeleteAllLibraries(){
     this.libraryService.deleteAllLibraries();
   }
 
+
+  // when edit button clicked get data from database and display in form
   onEditClicked(id: string){
     this.selectHaririFun();
     this.currentLibraryId = id;
@@ -122,6 +134,8 @@ export class LibraryComponent implements OnInit, OnDestroy {
     this.errorSub.unsubscribe();
   }
 
+
+  //when main is selected, show main floors, if hariri selected, show hariri floors, if none, display error (validation) 
   validateBuilding(value: any){
     if(value === 'Main' ){
       this.BuildingHasError=false;
@@ -134,6 +148,8 @@ export class LibraryComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  // check if floor is selected
   validateFloor(value:any){
     if(value === '1' || value === '2' || value === '3' || value === '4' || value === '5' || value === '6' || value === '7' || value === '8' || value === '9' || value === '10' || value === '11' ){
         this.floorHasError=false;
@@ -142,6 +158,7 @@ export class LibraryComponent implements OnInit, OnDestroy {
     }
   }
 
+  // cancel edit library 
   canceledit(){
     this.editMode=false;
     this.form.reset();
