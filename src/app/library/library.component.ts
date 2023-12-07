@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
-// import { ProductService } from '../Service/products.service';
-// import { Products } from '../model/products';
 import { Libraries } from '../model/libraries';
 import { LibraryServiceService } from '../Service/library-service.service';
 
@@ -13,27 +11,25 @@ import { LibraryServiceService } from '../Service/library-service.service';
 })
 export class LibraryComponent implements OnInit, OnDestroy {
 
-  allProducts: Libraries[] = [];
+  allLibraries: Libraries[] = [];
   isFetching: boolean = false;
   editMode: boolean = false;
-  currentProductId: string;
+  currentLibraryId: string;
   errorMessage: string = null;
   errorSub: Subscription;
   submitted:boolean=false;
   
 
-  rolestudent=false;
-
-  topicHasError=true;
+  BuildingHasError=true;
   floorHasError=true;
 
-  selectmain=false;
-  selecthariri=true;
+  selectMain=false;
+  selectHariri=true;
 
 
   buildings = ['Main', 'Hariri'];
-  mainfloors = ['1','2','3','4','5'];
-  haririfloors = ['1','2','3','4','5','6','7','8','9','10','11'];
+  mainFloors = ['1','2','3','4','5'];
+  haririFloors = ['1','2','3','4','5','6','7','8','9','10','11'];
 
 
 
@@ -47,14 +43,14 @@ export class LibraryComponent implements OnInit, OnDestroy {
 
   }
 
-  selectmainfun(){
-    this.selectmain=true;
-    this.selecthariri=false;
+  selectMainFun(){
+    this.selectMain=true;
+    this.selectHariri=false;
   }
 
-  selectharirifun(){
-    this.selecthariri=true;
-    this.selectmain=false;
+  selectHaririFun(){
+    this.selectHariri=true;
+    this.selectMain=false;
   }
 
 
@@ -69,14 +65,14 @@ export class LibraryComponent implements OnInit, OnDestroy {
     this.fetchLibraries();
   }
 
-  onLibraryCreate(products: {libname: string, building: string, floor: string, fromtime:string, totime:string}){
+  onLibraryCreate(library: {libname: string, building: string, floor: string, fromtime:string, totime:string}){
     this.submitted=true;
     if(!this.editMode){
-        this.libraryService.createLibrary(products);
+        this.libraryService.createLibrary(library);
         this.libraryService.fetchLibrary();
         this.form.reset();
     }else{
-      this.libraryService.updateLibrary(this.currentProductId, products);
+      this.libraryService.updateLibrary(this.currentLibraryId, library);
       this.form.reset();
       this.editMode=false;
     }
@@ -84,8 +80,8 @@ export class LibraryComponent implements OnInit, OnDestroy {
 
   private fetchLibraries(){
     this.isFetching = true;
-    this.libraryService.fetchLibrary().subscribe((products) => {
-      this.allProducts = products;
+    this.libraryService.fetchLibrary().subscribe((libraries) => {
+      this.allLibraries = libraries;
       this.isFetching = false;
     }, (err) => {
       this.errorMessage = err.message;
@@ -101,22 +97,22 @@ export class LibraryComponent implements OnInit, OnDestroy {
   }
 
   onEditClicked(id: string){
-    this.selectharirifun();
-    this.currentProductId = id;
-    //Get the product based on the id
-    let currentProduct = this.allProducts.find((p) => {return p.id === id});
-    //console.log(this.form);
+    this.selectHaririFun();
+    this.currentLibraryId = id;
 
-    //Populate the form with the product details
+    //Get the library based on the id
+    let currentLibrary = this.allLibraries.find((l) => {return l.id === id});
+
+    //Populate the form with the library details
     this.form.setValue({
-      libname: currentProduct.libname,
-      building: currentProduct.building,
-      floor: currentProduct.floor,
-      fromtime: currentProduct.fromtime,
-      totime: currentProduct.totime,
+      libname: currentLibrary.libname,
+      building: currentLibrary.building,
+      floor: currentLibrary.floor,
+      fromtime: currentLibrary.fromtime,
+      totime: currentLibrary.totime,
     });
 
-    //Change the button value to update product
+    //Change the button value to update library
     this.editMode = true;
   
    
@@ -128,13 +124,13 @@ export class LibraryComponent implements OnInit, OnDestroy {
 
   validateBuilding(value: any){
     if(value === 'Main' ){
-      this.topicHasError=false;
-      this.selectmainfun();
+      this.BuildingHasError=false;
+      this.selectMainFun();
     }else if(value === 'Hariri'){
-      this.topicHasError=false;
-      this.selectharirifun();
+      this.BuildingHasError=false;
+      this.selectHaririFun();
     }else{
-      this.topicHasError=true;
+      this.BuildingHasError=true;
     }
   }
 
@@ -149,9 +145,8 @@ export class LibraryComponent implements OnInit, OnDestroy {
   canceledit(){
     this.editMode=false;
     this.form.reset();
-    this.selectharirifun();
+    this.selectHaririFun();
    
-
   }
 
 }

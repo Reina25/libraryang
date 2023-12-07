@@ -33,21 +33,21 @@
                     <label for="">Building</label>
                     <select (blur)="validateBuilding(building.value)" (change)="validateBuilding(building.value)"
                       class="form-control " #building="ngModel"
-                      [class.is-invalid]="topicHasError && building.touched" name="building"
+                      [class.is-invalid]="BuildingHasError && building.touched" name="building"
                       [(ngModel)]="userModel.building">
 
                       <option *ngFor="let building of buildings">{{building}}</option>
 
 
                     </select>
-                    <small class="text-danger" [class.d-none]="!topicHasError || building.untouched">Please
+                    <small class="text-danger" [class.d-none]="!BuildingHasError || building.untouched">Please
                       choose a building</small>
 
                   </div>
 
 
 
-                  <div *ngIf="selectmain" class="form-group">
+                  <div *ngIf="selectMain" class="form-group">
                     <label for="">Floor</label>
                     <select (blur)="validateFloor(floor.value)" (change)="validateFloor(floor.value)"
                       class="form-control " #floor="ngModel"
@@ -56,7 +56,7 @@
 
 
 
-                      <option *ngFor="let floor of mainfloors">{{floor}}</option>
+                      <option *ngFor="let floor of mainFloors">{{floor}}</option>
 
 
                     </select>
@@ -67,7 +67,7 @@
 
 
 
-                  <div *ngIf="selecthariri" class="form-group">
+                  <div *ngIf="selectHariri" class="form-group">
                     <label for="">Floor</label>
                     <select (blur)="validateFloor(floor.value)" (change)="validateFloor(floor.value)"
                       class="form-control " #floor="ngModel"
@@ -75,7 +75,7 @@
                       [(ngModel)]="userModel.floor">
 
 
-                      <option *ngFor="let floor of haririfloors">{{floor}}</option>
+                      <option *ngFor="let floor of haririFloors">{{floor}}</option>
 
 
                     </select>
@@ -120,7 +120,7 @@
                     value="{{editMode ? 'Update' : 'Submit'}}">
                     </div>
                     <div class=" px-2">
-                      <button (click)="canceledit()" *ngIf="editMode" class="btn btn-primary " type="button">Cancel </button>
+                      <button (click)="canceledit()" *ngIf="editMode" class="btn btn-primary " type="button">Cancel</button>
 
                     </div>
   
@@ -136,7 +136,7 @@
 
 
             <!--Display library area-->
-            <div id="tabledisplay" class="product-display-area col-7 px-3 py-3">
+            <div id="tabledisplay" class="library-display-area col-7 px-3 py-3">
            
               <h3 class="py-3">Libraries</h3>
              
@@ -153,7 +153,7 @@
 
 
                 </tr>
-                <tr *ngIf="allProducts.length < 1 && !isFetching">
+                <tr *ngIf="allLibraries.length < 1 && !isFetching">
                   <td colspan="5">No Libraries Available</td>
                 </tr>
                 <tr *ngIf="errorMessage">
@@ -162,24 +162,24 @@
                 <tr *ngIf="isFetching && !errorMessage">
                   <td colspan="5">Loading....</td>
                 </tr>
-                <tr *ngFor="let prod of allProducts; index as i">
+                <tr *ngFor="let lib of allLibraries; index as i">
 
-                  <td>{{prod.libname}}</td>
-                  <td>{{prod.building}}</td>
-                  <td>{{prod.floor}}</td>
-                  <td>{{prod.fromtime}}</td>
-                  <td>{{prod.totime}}</td>
+                  <td>{{lib.libname}}</td>
+                  <td>{{lib.building}}</td>
+                  <td>{{lib.floor}}</td>
+                  <td>{{lib.fromtime}}</td>
+                  <td>{{lib.totime}}</td>
                   <td class="text-center ">
 
 
         
-                    <div class="modal fade" [id] = "'exampleModal' + prod.id" tabindex="-1" role="dialog"
+                    <div class="modal fade" [id] = "'exampleModal' + lib.id" tabindex="-1" role="dialog"
                       aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete
-                              {{prod.libname}}</h5>
+                              {{lib.libname}}</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
@@ -189,7 +189,7 @@
                             <button type="button" class="btn btn-secondary"
                               data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary" data-dismiss="modal"
-                              (click)="onDeleteLibrary(prod.id);onLibrariesFetch();onLibrariesFetch();onLibrariesFetch()">Save changes</button>
+                              (click)="onDeleteLibrary(lib.id);onLibrariesFetch();onLibrariesFetch();onLibrariesFetch()">Save changes</button>
                           </div>
                         </div>
                       </div>
@@ -203,11 +203,11 @@
                     <div class=" row">
                       <div class=" px-3">
                         <a id="noblue"><button class="btn btn-success" type="button"
-                          (click)="onEditClicked(prod.id)">Edit </button></a>
+                          (click)="onEditClicked(lib.id)">Edit </button></a>
                       </div>
                       <div class=" px-2">
                         <button type="button" class="btn btn-danger" data-toggle="modal"
-                        [attr.data-target]="'#exampleModal' + prod.id">
+                        [attr.data-target]="'#exampleModal' + lib.id">
                         Delete
                       </button>
                       </div>

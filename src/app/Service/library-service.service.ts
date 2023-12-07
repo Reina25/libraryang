@@ -38,13 +38,13 @@ export class LibraryServiceService {
       return this.http.get<{[key: string]: Libraries}>('https://library-eff58-default-rtdb.firebaseio.com/libraries.json', 
       {'headers' : header, params: params})
       .pipe(map((res) => {
-          const products = [];
+          const libraries = [];
           for(const key in res){
               if(res.hasOwnProperty(key)){
-              products.push({...res[key], id: key})
+                libraries.push({...res[key], id: key})
               }
           }
-          return products;
+          return libraries;
       }), catchError((err) => {
           return throwError(err);
       }))
